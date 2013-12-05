@@ -100,10 +100,10 @@ var render = function () {
 
 	// Score
 	ctx.fillStyle = "rgb(250, 250, 250)";
-	ctx.font = "24px Helvetica";
+	ctx.font = "22px 'Ubuntu Mono'";
 	ctx.textAlign = "left";
 	ctx.textBaseline = "top";
-	ctx.fillText("Goblins caught: " + monstersCaught, 32, 32);
+	ctx.fillText("GOBLINS CAUGHT: " + monstersCaught, 32, 32);
 };
 
 // The main game loop
@@ -120,4 +120,4 @@ var main = function () {
 // Let's play this game!
 reset();
 var then = Date.now();
-setInterval(main, 1); // Execute as fast as possible
+setInterval(main, 33.33); // Execute as fast as possible
