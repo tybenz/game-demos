@@ -14,21 +14,21 @@ hitCount = 0;
 var heroReady = false;
 var heroImage = new Image();
 heroImage.onload = function () {
-	heroReady = true;
+    heroReady = true;
 };
 heroImage.src = "images/spaceship.png";
 
 // Game objects
 var hero = {
-	speed: 256 // movement in pixels per second
+    speed: 256 // movement in pixels per second
 };
 
 var asteroidSpeed = 256;
 var asteroids = [];
 var asteroidImages = [
-  new Image(),
-  new Image(),
-  new Image()
+    new Image(),
+    new Image(),
+    new Image()
 ];
 
 var asteroidDimensions = [ [ 32, 32 ], [ 56, 60 ], [ 32, 32 ] ];
@@ -50,40 +50,40 @@ var keysDown = {};
 var mouse = { x: 0, y: 0};
 
 addEventListener("keydown", function (e) {
-	keysDown[e.keyCode] = true;
+    keysDown[e.keyCode] = true;
 }, false);
 
 addEventListener("keyup", function (e) {
-	delete keysDown[e.keyCode];
+    delete keysDown[e.keyCode];
 }, false);
 
 addEventListener("mousemove", function(e) {
-  mouse.x = e.pageX - $(canvas).offset().left;
-  mouse.y = e.pageY - $(canvas).offset().top;
+    mouse.x = e.pageX - $(canvas).offset().left;
+    mouse.y = e.pageY - $(canvas).offset().top;
 }, false);
 
 var reset = function () {
-	hero.x = canvas.width / 2 - 16;
-	hero.y = canvas.height - 64;
+    hero.x = canvas.width / 2 - 16;
+    hero.y = canvas.height - 64;
 
-  asteroids = [];
+    asteroids = [];
 
-  for ( var i = 0; i < 200; i++ ) {
-    var index = Math.floor( ( Math.random() * 10 ) % 3 );
-    asteroids.push({
-      x: Math.random() * canvas.width,
-      y: 0 - ( Math.random() * canvas.height * 20 ),
-      image: asteroidImages[index],
-      width: asteroidDimensions[index][0],
-      height: asteroidDimensions[index][1]
-    });
-  }
+    for ( var i = 0; i < 200; i++ ) {
+        var index = Math.floor( ( Math.random() * 10 ) % 3 );
+        asteroids.push({
+            x: Math.random() * canvas.width,
+            y: 0 - ( Math.random() * canvas.height * 20 ),
+            image: asteroidImages[index],
+            width: asteroidDimensions[index][0],
+            height: asteroidDimensions[index][1]
+        });
+    }
 };
 
 var angle = function ( v1, v2 ) {
     var dy = v2.y - v1.y,
-        dx = v2.x - v1.x,
-        theta = Math.atan2( dy, dx );
+    dx = v2.x - v1.x,
+    theta = Math.atan2( dy, dx );
 
     return theta * ( 180 / Math.PI );
 };
@@ -95,79 +95,79 @@ var angleMag2Vector = function ( angle, mag ) {
 
 // Update game objects
 var update = function (modifier) {
-  var vel = angleMag2Vector( angle( hero, mouse ), hero.speed );
+    var vel = angleMag2Vector( angle( hero, mouse ), hero.speed );
 
-  if ( Math.abs( hero.y - mouse.y ) > 32 ) {
-    hero.y += vel.y * modifier;
-  }
-  if ( Math.abs( hero.x - mouse.x ) > 32 ) {
-    hero.x += vel.x * modifier;
-  }
-
-  for ( var i = 0, len = asteroids.length; i < len; i++ ) {
-    var ast = asteroids[i];
-
-    ast.y += asteroidSpeed * modifier
-
-    if (
-      hero.x <= (ast.x + 32)
-      && ast.x <= (hero.x + ast.width)
-      && hero.y <= (ast.y + 32)
-      && ast.y <= (hero.y + ast.height)
-    ) {
-      hitCount++;
-      reset();
+    if ( Math.abs( hero.y - mouse.y ) > 32 ) {
+        hero.y += vel.y * modifier;
     }
-  }
+    if ( Math.abs( hero.x - mouse.x ) > 32 ) {
+        hero.x += vel.x * modifier;
+    }
 
-	// Are they touching?
-	if ( false ) {
-		reset();
-	}
+    for ( var i = 0, len = asteroids.length; i < len; i++ ) {
+        var ast = asteroids[i];
+
+        ast.y += asteroidSpeed * modifier
+
+        if (
+            hero.x <= (ast.x + 32)
+                && ast.x <= (hero.x + ast.width)
+            && hero.y <= (ast.y + 32)
+            && ast.y <= (hero.y + ast.height)
+        ) {
+            hitCount++;
+            reset();
+        }
+    }
+
+    // Are they touching?
+    if ( false ) {
+        reset();
+    }
 };
 
 // Draw everything
 var render = function () {
-  ctx.fillStyle = '#011';
-  ctx.fillRect(0, 0, canvasWidth, canvasHeight);
+    ctx.fillStyle = '#011';
+    ctx.fillRect(0, 0, canvasWidth, canvasHeight);
 
-	if (heroReady) {
-		ctx.drawImage(heroImage, hero.x, hero.y);
-	}
-
-  if (asteroid1Ready && asteroid2Ready && asteroid3Ready) {
-    for ( var i = 0, len = asteroids.length; i < len; i++ ) {
-      var ast = asteroids[i];
-      ctx.drawImage( ast.image, ast.x, ast.y );
+    if (heroReady) {
+        ctx.drawImage(heroImage, hero.x, hero.y);
     }
-  }
 
-	// Score
-	ctx.fillStyle = "rgb(250, 250, 250)";
-	ctx.font = "22px 'Ubuntu Mono'";
-	ctx.textAlign = "left";
-	ctx.textBaseline = "top";
-	ctx.fillText("YOU'VE BEEN HIT " + hitCount + " TIMES", 32, 32);
+    if (asteroid1Ready && asteroid2Ready && asteroid3Ready) {
+        for ( var i = 0, len = asteroids.length; i < len; i++ ) {
+            var ast = asteroids[i];
+            ctx.drawImage( ast.image, ast.x, ast.y );
+        }
+    }
+
+    // Score
+    ctx.fillStyle = "rgb(250, 250, 250)";
+    ctx.font = "22px 'Ubuntu Mono'";
+    ctx.textAlign = "left";
+    ctx.textBaseline = "top";
+    ctx.fillText("YOU'VE BEEN HIT " + hitCount + " TIMES", 32, 32);
 };
 
 // The main game loop
 var main = function () {
-	var now = Date.now();
-	var delta = now - then;
+    var now = Date.now();
+    var delta = now - then;
 
-	update(delta / 1000);
-	render();
+    update(delta / 1000);
+    render();
 
-	then = now;
+    then = now;
 };
 
 var start = document.getElementById('start');
 var then;
 start.addEventListener( 'click', function ( e ) {
-  e.preventDefault();
-  // Let's play this game!
-  reset();
-  then = Date.now();
-  setInterval(main, 33.33); // Execute as fast as possible
-  this.style.display = 'none';
+    e.preventDefault();
+    // Let's play this game!
+    reset();
+    then = Date.now();
+    setInterval(main, 33.33); // Execute as fast as possible
+    this.style.display = 'none';
 }, false);
