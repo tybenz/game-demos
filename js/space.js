@@ -20,7 +20,7 @@ heroImage.src = "images/spaceship.png";
 
 // Game objects
 var hero = {
-    speed: 256 // movement in pixels per second
+    speed: 500 // movement in pixels per second
 };
 
 var asteroidSpeed = 256;
@@ -97,11 +97,24 @@ var angleMag2Vector = function ( angle, mag ) {
 var update = function (modifier) {
     var vel = angleMag2Vector( angle( hero, mouse ), hero.speed );
 
-    if ( Math.abs( hero.y - mouse.y ) > 32 ) {
+    if ( Math.abs( hero.y - mouse.y ) > 10 ) {
         hero.y += vel.y * modifier;
     }
-    if ( Math.abs( hero.x - mouse.x ) > 32 ) {
+    if ( Math.abs( hero.x - mouse.x ) > 10 ) {
         hero.x += vel.x * modifier;
+    }
+
+    if ( hero.x < 0 ) {
+      hero.x = 0;
+    }
+    if ( hero.x > canvasWidth - 32 ) {
+      hero.x = canvasWidth - 32;
+    }
+    if ( hero.y < 0 ) {
+      hero.y = 0;
+    }
+    if ( hero.y > canvasHeight - 32 ) {
+      hero.y = canvasHeight - 32;
     }
 
     for ( var i = 0, len = asteroids.length; i < len; i++ ) {

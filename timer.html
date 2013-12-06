@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>Simple Canvas Game</title>
+    <style type="text/css" media="all">
+      #start {
+        text-decoration: none;
+        color: #fff;
+        font-size: 62px;
+        z-index: 1;
+        font-family: 'Ubuntu Mono', monspace;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        -webkit-transform: translateX(-50%) translateY(-50%);
+        -moz-transform: translateX(-50%) translateY(-50%);
+        -ms-transform: translateX(-50%) translateY(-50%);
+        -o-transform: translateX(-50%) translateY(-50%);
+        transform: translateX(-50%) translateY(-50%);
+      }
+
+      canvas {
+        background-image:url(images/background.png);
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        -webkit-transform: translateX(-50%) translateY(-50%);
+        -moz-transform: translateX(-50%) translateY(-50%);
+        -ms-transform: translateX(-50%) translateY(-50%);
+        -o-transform: translateX(-50%) translateY(-50%);
+        transform: translateX(-50%) translateY(-50%);
+      }
+
+      body {
+        font-family: 'Ubuntu Mono', monospace;
+      }
+    </style>
+	</head>
+	<body>
+    <a href="#" id="start">START</a>
+    <h3>Top Scores:</h3>
+    <ol id="top">
+    </ol>
+	</body>
+  <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+  <script src="js/timer.js"></script>
+</html>
