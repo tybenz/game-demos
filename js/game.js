@@ -84,10 +84,20 @@ var update = function (modifier) {
     }
 };
 
+var loc = window.location.toString();
+var first = true;
+
 // Draw everything
 var render = function () {
-    if (bgReady) {
-        ctx.drawImage(bgImage, 0, 0);
+    if (bgReady && first) {
+        if (loc.search(/skipclear/) > -1) {
+          if (first) {
+            first = false;
+            ctx.drawImage(bgImage, 0, 0);
+          }
+        } else {
+            ctx.drawImage(bgImage, 0, 0);
+        }
     }
 
     if (heroReady) {
@@ -115,9 +125,12 @@ var main = function () {
     render();
 
     then = now;
+
+    requestAnimationFrame(main);
 };
 
 // Let's play this game!
 reset();
 var then = Date.now();
 setInterval(main, 33.33); // Execute as fast as possible
+main();
